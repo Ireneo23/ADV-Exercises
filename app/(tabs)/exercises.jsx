@@ -6,6 +6,8 @@ import {
   Dimensions,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import HTMLView from "react-native-htmlview";
 
@@ -40,6 +42,12 @@ export default function Exercise() {
     setTimeout(() => setRefreshing(false), 2000);
   };
 
+  //this will just a temiporary function to navigate to login screen sir!.
+  //this function not meant to all the elements in the exercises array.
+  const handlePress = () => {
+    navigation.navigate("/login");
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -49,11 +57,10 @@ export default function Exercise() {
     >
       {exercises.map((exercise, index) => (
         <View key={index} style={styles.card}>
-          <Text style={styles.title}>{exercise.title}</Text>
-          <HTMLView
-            value={`<p>${exercise.description}</p>`}
-            stylesheet={htmlStyles}
-          />
+          <TouchableOpacity onPress={handlePress}>
+            <Text style={styles.title}>{exercise.title}</Text>
+            <HTMLView value={exercise.description} stylesheet={htmlStyles} />
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
