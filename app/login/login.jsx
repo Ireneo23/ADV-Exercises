@@ -45,7 +45,7 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 32,
     marginTop: 32,
   },
   title: {
@@ -55,11 +55,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 12,
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
+    borderRadius: 4,
+    fontSize: 16,
+    fontWeight: "500",
+    opacity: 0.8,
   },
   button: {
     marginTop: 24,
