@@ -16,5 +16,5 @@
     "expo-env.d.ts"
 , "app/(tabs)/exercises.jsx",
 "app/(tabs)/_layout.jsx",
-"app/login/login.jsx",]
+"app/(information)/login.jsxgin.jsx",]
 }

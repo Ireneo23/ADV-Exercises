@@ -1,8 +1,11 @@
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { TouchableOpacity, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Layout() {
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={({ route }) => ({
@@ -37,15 +40,31 @@ export default function Layout() {
       <Tabs.Screen
         name="exercises"
         options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Back button pressed");
+                router.back();
+              }}
+            >
+              <Ionicons
+                style={styles.icon}
+                name="arrow-back"
+                size={24}
+                color="black"
+              />
+            </TouchableOpacity>
+          ),
           title: "Exercises",
-        }}
-      />
-      <Tabs.Screen
-        name="effect"
-        options={{
-          title: "Effect",
+          headerTitle: "",
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  icon: {
+    paddingLeft: 20,
+  },
+});
