@@ -40,6 +40,12 @@ export default function Layout() {
           title: "Exercises",
         }}
       />
+      <Tabs.Screen
+        name="effect"
+        options={{
+          title: "Effect",
+        }}
+      />
     </Tabs>
   );
 }

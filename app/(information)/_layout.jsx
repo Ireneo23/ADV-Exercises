@@ -5,6 +5,8 @@ export default function Layout() {
     <Stack>
       <Stack.Screen name="about" />
       <Stack.Screen name="contact" />
+      <Stack.Screen name="effect" />
+      <Stack.Screen name="exercises" />
     </Stack>
   );
 }

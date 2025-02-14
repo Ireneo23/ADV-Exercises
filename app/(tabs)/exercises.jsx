@@ -18,9 +18,13 @@ export default function Exercise() {
     {
       title: "Exercise 4",
       description:
+        "UseSate and useEffect<br/>Create a timer that starts when the user clicks the start button and stops when the user clicks the stop button",
+    },
+    {
+      title: "Exercise 5",
+      description:
         "Create register screen<br/>Register screen fields:\n\n<ul><li>Image: Allows user to select image</li><li>Name</li><li>Email</li><li>Password</li></ul>",
     },
-    { title: "Exercise 5", description: "Sample description rendered HTML 5" },
     { title: "Exercise 6", description: "Sample description rendered HTML 6" },
     { title: "Exercise 7", description: "Sample description rendered HTML 7" },
     { title: "Exercise 8", description: "Sample description rendered HTML 8" },
@@ -33,9 +37,11 @@ export default function Exercise() {
 
   const handlePress = (index) => {
     if (index === 0) {
-      navigation.navigate("/login");
+      navigation.navigate("login");
     } else if (index === 1) {
-      navigation.navigate("../(information)/contact");
+      navigation.navigate("../(information)/effect");
+    } else if (index === 2) {
+      navigation.navigate("../(information)/about");
     }
   };
 
