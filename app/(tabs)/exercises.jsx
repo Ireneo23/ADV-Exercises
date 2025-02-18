@@ -41,7 +41,7 @@ export default function Exercise() {
     } else if (index === 1) {
       navigation.navigate("../(information)/effect");
     } else if (index === 2) {
-      navigation.navigate("../(information)/about");
+      navigation.navigate("../(information)/register");
     }
   };
 
