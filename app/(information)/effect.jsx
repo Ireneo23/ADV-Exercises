@@ -9,13 +9,13 @@ export default function Effect() {
     let interval = null;
     if (start) {
       interval = setInterval(() => {
-        setTime(time + 1);
-      }, 1000);
+        setTime((prevTime) => prevTime + 10);
+      }, 10);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [start, time]);
+  }, [start]);
 
   function handleStart() {
     setStart(!start);
@@ -26,9 +26,16 @@ export default function Effect() {
     setTime(0);
   }
 
+  const formatTime = (time) => {
+    const milliseconds = `0${(time % 1000) / 10}`.slice(-2);
+    const seconds = `0${Math.floor((time / 1000) % 60)}`.slice(-2);
+    const minutes = `0${Math.floor((time / 60000) % 60)}`.slice(-2);
+    return `${minutes}:${seconds}:${milliseconds}`;
+  };
+
   return (
     <View style={{ padding: 20, gap: 16 }}>
-      <Text style={styles.time}>00:00:0{time}</Text>
+      <Text style={styles.time}>{formatTime(time)}</Text>
       <Button onPress={handleReset} title="Reset" />
       <Button onPress={handleStart} title={`${!start ? "Start" : "Pause"}`} />
     </View>
@@ -38,6 +45,6 @@ export default function Effect() {
 const styles = StyleSheet.create({
   time: {
     fontSize: 100,
-    fontWeight: 600,
+    fontWeight: "600",
   },
 });
