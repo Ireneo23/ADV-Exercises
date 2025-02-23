@@ -92,6 +92,27 @@ export default function Layout() {
           headerTitle: "",
         }}
       />
+      <Stack.Screen
+        name="crud"
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Back button pressed");
+                router.navigate("/(tabs)/exercises");
+              }}
+            >
+              <Ionicons
+                style={styles.icon}
+                name="arrow-back"
+                size={24}
+                color="black"
+              />
+            </TouchableOpacity>
+          ),
+          headerTitle: "",
+        }}
+      />
     </Stack>
   );
 }

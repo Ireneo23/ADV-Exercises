@@ -25,7 +25,10 @@ export default function Exercise() {
       description:
         "Create register screen<br/>Register screen fields:\n\n<ul><li>Image: Allows user to select image</li><li>Name</li><li>Email</li><li>Password</li></ul>",
     },
-    { title: "Exercise 6", description: "Sample description rendered HTML 6" },
+    {
+      title: "Exercise 6",
+      description: "Simple CRUD using useContext and useReducer",
+    },
     { title: "Exercise 7", description: "Sample description rendered HTML 7" },
     { title: "Exercise 8", description: "Sample description rendered HTML 8" },
     { title: "Exercise 9", description: "Sample description rendered HTML 9" },
@@ -42,6 +45,8 @@ export default function Exercise() {
       navigation.navigate("../(information)/effect");
     } else if (index === 2) {
       navigation.navigate("../(information)/register");
+    } else if (index === 3) {
+      navigation.navigate("../(information)/crud");
     }
   };
 

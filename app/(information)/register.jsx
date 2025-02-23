@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -17,6 +18,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: true,
@@ -30,18 +32,16 @@ const Register = () => {
   };
 
   const handleRegister = () => {
-    // Handle registration logic here
     console.log("Registering:", { name, email, password });
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
-      {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
         <Text style={styles.imagePickerText}>Select Image</Text>
       </TouchableOpacity>
-
+      {image && <Image source={{ uri: image }} style={styles.image} />}
       <TextInput
         style={styles.input}
         placeholder="Name"
@@ -82,8 +82,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
-    borderWidth: 2,
-    borderColor: "rgb(24, 175, 213)",
   },
   imagePickerText: {
     color: "#000",
