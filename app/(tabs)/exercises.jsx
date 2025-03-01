@@ -46,7 +46,7 @@ export default function Exercise() {
     } else if (index === 2) {
       navigation.navigate("../(information)/register");
     } else if (index === 3) {
-      navigation.navigate("../(information)/crud");
+      navigation.navigate("../crud/crud");
     }
   };
 

@@ -1,4 +1,10 @@
-import React, { useReducer, useState, useRef } from "react";
+import React, {
+  useReducer,
+  useState,
+  useRef,
+  createContext,
+  useContext,
+} from "react";
 import {
   View,
   Text,
@@ -14,6 +20,8 @@ import {
 const initialState = {
   notes: [],
 };
+
+const NotesContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
@@ -84,50 +92,62 @@ export default function CrudApp() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Keep Note</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={noteText}
-          onChangeText={setNoteText}
-          placeholder="Enter note"
-        />
-        <Button title="Add Note" onPress={addNote} />
-      </View>
-      <FlatList
-        data={state.notes}
-        renderItem={({ item }) => (
-          <View style={styles.noteItem}>
-            <Text>{item.text}</Text>
-            <View style={styles.noteActions}>
-              <TouchableOpacity
-                onPress={() => openEditModal(item.id, item.text)}
-              >
-                <Text style={styles.editButton}>Edit</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => deleteNote(item.id)}>
-                <Text style={styles.deleteButton}>Delete</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
-        keyExtractor={(item) => item.id}
-      />
-      <Modal visible={isModalVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Edit Note</Text>
+    <NotesContext.Provider value={{ state, dispatch }}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Keep Note</Text>
+        <View style={styles.inputContainer}>
           <TextInput
-            style={[styles.input, styles.modalInput]}
-            defaultValue={currentNoteTextRef.current}
-            onChangeText={(text) => (currentNoteTextRef.current = text)}
+            style={styles.input}
+            value={noteText}
+            onChangeText={setNoteText}
             placeholder="Enter note"
-            multiline={true}
           />
-          <Button title="Update Note" onPress={updateNote} />
-          <Button title="Cancel" onPress={() => setIsModalVisible(false)} />
+          <Button title="Add Note" onPress={addNote} />
         </View>
-      </Modal>
+        <FlatList
+          data={state.notes}
+          renderItem={({ item }) => (
+            <NoteItem
+              item={item}
+              openEditModal={openEditModal}
+              deleteNote={deleteNote}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+        <Modal visible={isModalVisible} animationType="slide">
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Edit Note</Text>
+            <TextInput
+              style={[styles.input, styles.modalInput]}
+              defaultValue={currentNoteTextRef.current}
+              onChangeText={(text) => (currentNoteTextRef.current = text)}
+              placeholder="Enter note"
+              multiline={true}
+            />
+            <Button title="Update Note" onPress={updateNote} />
+            <Button title="Cancel" onPress={() => setIsModalVisible(false)} />
+          </View>
+        </Modal>
+      </View>
+    </NotesContext.Provider>
+  );
+}
+
+function NoteItem({ item, openEditModal, deleteNote }) {
+  const { dispatch } = useContext(NotesContext);
+
+  return (
+    <View style={styles.noteItem}>
+      <Text>{item.text}</Text>
+      <View style={styles.noteActions}>
+        <TouchableOpacity onPress={() => openEditModal(item.id, item.text)}>
+          <Text style={styles.editButton}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteNote(item.id)}>
+          <Text style={styles.deleteButton}>Delete</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -178,14 +198,17 @@ const styles = StyleSheet.create({
   noteActions: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    marginTop: 10,
+    textAlign: "center",
+    paddingRight: 10,
   },
   editButton: {
     color: "#007bff",
     marginRight: 30,
     fontWeight: "bold",
+    fontSize: 20,
   },
   deleteButton: {
+    fontSize: 20,
     color: "#dc3545",
     fontWeight: "bold",
   },
