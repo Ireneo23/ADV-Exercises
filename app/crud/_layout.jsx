@@ -14,7 +14,7 @@ export default function Layout() {
               <TouchableOpacity
                 onPress={() => {
                   console.log("Back button pressed");
-                  router.navigate("/(tabs)/exercises");
+                  router.push("/(tabs)/exercises");
                 }}
               >
                 <Ionicons
@@ -25,7 +25,8 @@ export default function Layout() {
                 />
               </TouchableOpacity>
             ),
-            headerTitle: "",
+            headerTitle: "Exercise 6 (simple crud app)",
+            headerTitleAlign: "center",
           }}
         />
       </Stack>

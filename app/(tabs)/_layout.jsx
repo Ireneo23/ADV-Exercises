@@ -56,7 +56,8 @@ export default function Layout() {
             </TouchableOpacity>
           ),
           title: "Exercises",
-          headerTitle: "",
+          headerTitle: "Exercises",
+          headerTitleAlign: "center",
         }}
       />
     </Tabs>

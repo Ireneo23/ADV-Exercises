@@ -15,7 +15,7 @@ export default function Layout() {
             <TouchableOpacity
               onPress={() => {
                 console.log("Back button pressed");
-                router.navigate("/(tabs)/exercises");
+                router.push("/(tabs)/exercises");
               }}
             >
               <Ionicons
@@ -26,7 +26,8 @@ export default function Layout() {
               />
             </TouchableOpacity>
           ),
-          headerTitle: "",
+          headerTitle: "Contact",
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -36,7 +37,7 @@ export default function Layout() {
             <TouchableOpacity
               onPress={() => {
                 console.log("Back button pressed");
-                router.navigate("/(tabs)/exercises");
+                router.push("/(tabs)/exercises");
               }}
             >
               <Ionicons
@@ -47,7 +48,8 @@ export default function Layout() {
               />
             </TouchableOpacity>
           ),
-          headerTitle: "",
+          headerTitle: "Exercise 4 (Timer)",
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -57,7 +59,7 @@ export default function Layout() {
             <TouchableOpacity
               onPress={() => {
                 console.log("Back button pressed");
-                router.navigate("/(tabs)/exercises");
+                router.push("/(tabs)/exercises");
               }}
             >
               <Ionicons
@@ -68,7 +70,8 @@ export default function Layout() {
               />
             </TouchableOpacity>
           ),
-          headerTitle: "",
+          headerTitle: "Exercise 3 (Login)",
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
@@ -78,7 +81,7 @@ export default function Layout() {
             <TouchableOpacity
               onPress={() => {
                 console.log("Back button pressed");
-                router.navigate("/(tabs)/exercises");
+                router.push("/(tabs)/exercises");
               }}
             >
               <Ionicons
@@ -89,17 +92,19 @@ export default function Layout() {
               />
             </TouchableOpacity>
           ),
-          headerTitle: "",
+          headerTitle: "Exercise 5 (Register)",
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
-        name="crud"
+        name="quiz"
+        style={styles.title}
         options={{
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => {
                 console.log("Back button pressed");
-                router.navigate("/(tabs)/exercises");
+                router.push("/(tabs)/exercises");
               }}
             >
               <Ionicons
@@ -110,7 +115,8 @@ export default function Layout() {
               />
             </TouchableOpacity>
           ),
-          headerTitle: "",
+          headerTitle: "Exercise 7 (Quiz API)",
+          headerTitleAlign: "center",
         }}
       />
     </Stack>
