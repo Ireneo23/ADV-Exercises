@@ -7,18 +7,23 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  Alert,
+  Modal,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebaseConfig"; // Adjust the path if necessary
 
 const Register = () => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const navigation = useNavigation();
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images", "videos"],
       allowsEditing: true,
@@ -31,13 +36,45 @@ const Register = () => {
     }
   };
 
-  const handleRegister = () => {
-    console.log("Registering:", { name, email, password });
+  const handleRegister = async () => {
+    if (!name || !email || !password || !image) {
+      setModalMessage("Name, email, password and profile image are required.");
+      setModalVisible(true);
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User registered:", userCredential.user);
+      navigation.navigate("home", { name, email }); // Pass name and email to home
+    } catch (error) {
+      setModalMessage(error.message);
+      setModalVisible(true);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      {/* Modal for displaying messages */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>{modalMessage}</Text>
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
+
+      <Text style={styles.title}>Sign UP</Text>
       <TouchableOpacity onPress={pickImage} style={styles.imagePicker}>
         <Text style={styles.imagePickerText}>Select Image</Text>
       </TouchableOpacity>
@@ -63,6 +100,10 @@ const Register = () => {
         secureTextEntry
       />
       <Button title="Register" onPress={handleRegister} />
+      <Text style={styles.accountText}>Do you have an account?</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("login")}>
+        <Text style={styles.registerText}>Login</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -104,6 +145,37 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     opacity: 0.8,
+  },
+  registerText: {
+    marginTop: 16,
+    textAlign: "center",
+    fontSize: 16,
+    color: "rgb(24, 175, 213)",
+    fontWeight: "600",
+  },
+  accountText: {
+    marginTop: 16,
+    textAlign: "center",
+    fontSize: 16,
+    color: "gray",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
   },
 });
 

@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import RadioGroup from "react-native-radio-buttons-group";
 import CustomButton from "./CustomButton";
 import { useRouter } from "expo-router";
 
@@ -62,6 +61,20 @@ export default function Quiz({ numQuestions }) {
     }
   };
 
+  const decodeHtmlEntities = (str) => {
+    const htmlEntities = {
+      "&quot;": '"',
+      "&#039;": "'",
+      "&amp;": "&",
+      "&lt;": "<",
+      "&gt;": ">",
+    };
+
+    return str.replace(/&[#a-z0-9]+;/gi, (entity) => {
+      return htmlEntities[entity] || entity;
+    });
+  };
+
   console.log(quizzes);
   const handlePress = () => {
     navigation.navigate("../(information)/quiz");
@@ -85,8 +98,9 @@ export default function Quiz({ numQuestions }) {
               <Text style={styles.questionLabel}>
                 Question number {count}/{numQuestions}
               </Text>
+
               <Text style={styles.question}>
-                {current + 1}. {quizzes[current].question}
+                {current + 1}. {decodeHtmlEntities(quizzes[current].question)}
               </Text>
             </View>
             <View>

@@ -33,8 +33,16 @@ export default function Exercise() {
       title: "Exercise 7",
       description: "Simple quiz using the API from Open Trivia Database",
     },
-    { title: "Exercise 8", description: "Sample description rendered HTML 8" },
-    { title: "Exercise 9", description: "Sample description rendered HTML 9" },
+    {
+      title: "Exercise 8",
+      description:
+        "Using React Hook Form, add appropriate validations for the registration and login page",
+    },
+    {
+      title: "Exercise 9",
+      description:
+        "Connect your React Native app to Firebase. On the registration and login pages, integrate Firebase Authentication and use Firebase Storage to allow users to upload a profile image during registration.",
+    },
     {
       title: "Exercise 10",
       description: "Sample description rendered HTML 10",
@@ -52,6 +60,10 @@ export default function Exercise() {
       navigation.navigate("../crud/crud");
     } else if (index === 4) {
       navigation.navigate("../(information)/quiz");
+    } else if (index === 5) {
+      navigation.navigate("login");
+    } else if (index === 6) {
+      navigation.navigate("register");
     }
   };
 

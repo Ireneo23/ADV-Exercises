@@ -119,6 +119,29 @@ export default function Layout() {
           headerTitleAlign: "center",
         }}
       />
+      <Stack.Screen
+        name="home"
+        style={styles.title}
+        options={{
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={() => {
+                console.log("Back button pressed");
+                router.push("/(tabs)/exercises");
+              }}
+            >
+              <Ionicons
+                style={styles.icon}
+                name="arrow-back"
+                size={24}
+                color="black"
+              />
+            </TouchableOpacity>
+          ),
+          headerTitle: "Exercise 8 - 9",
+          headerTitleAlign: "center",
+        }}
+      />
     </Stack>
   );
 }
